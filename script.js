@@ -1,4 +1,4 @@
-import { ethers } from "https://cdn.ethers.io/lib/ethers-5.0.esm.min.js"
+//import { ethers } from "https://cdn.ethers.io/lib/ethers-5.0.esm.min.js";
 
 const moodContractAddress = "0xea29Bf52600B24951487358228e7580DC7774A39";
 const moodContractABI = [
@@ -48,11 +48,16 @@ provider.send("eth_requestAccounts", []).then(() => {
 async function getMood() {
     const getMoodPromice = moodContract.getMood();
     const mood = await getMoodPromice;
+    console.log("get works");
     alert(mood);
 }
 
 async function setMood() {
     const mood = document.getElementById("mood").value;
     const setMoodPromise = moodContract.setMood(mood);
+    console.log("set works");
     await setMoodPromise;
 }
+
+document.getElementById("set").addEventListener(onclick, setMood);
+document.getElementById("get").addEventListener(onclick, getMood);

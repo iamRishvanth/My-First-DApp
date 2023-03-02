@@ -1,4 +1,4 @@
-//import { ethers } from "https://cdn.ethers.io/lib/ethers-5.0.esm.min.js";
+// const { ethers } = require("https://cdn.ethers.io/lib/ethers-5.2.umd.min.js");
 
 const moodContractAddress = "0xea29Bf52600B24951487358228e7580DC7774A39";
 const moodContractABI = [
@@ -29,35 +29,34 @@ const moodContractABI = [
 		"type": "function"
 	}
 ];
+
 let moodContract;
 let signer;
 
-const provider = new ethers.providers.Web3Provider(window.ethereum, "goerli");
-
-provider.send("eth_requestAccounts", []).then(() => {
-    provider.listAccounts().then((accounts) => {
-        signer = provider.getSigner(accounts[0]);
-        moodContract = new ethers.Contract(
-            moodContractAddress,
-            moodContractABI,
-            signer
-        )
-    })
-})
-
 async function getMood() {
-    const getMoodPromice = moodContract.getMood();
-    const mood = await getMoodPromice;
+    const mood = await moodContract.getMood();
     console.log("get works");
     alert(mood);
 }
 
 async function setMood() {
     const mood = document.getElementById("mood").value;
-    const setMoodPromise = moodContract.setMood(mood);
+    await moodContract.setMood(mood);
     console.log("set works");
-    await setMoodPromise;
 }
 
-document.getElementById("set").addEventListener(onclick, setMood);
-document.getElementById("get").addEventListener(onclick, getMood);
+const main = async () => {
+	const provider = new ethers.providers.Web3Provider(window.ethereum, "goerli");
+	const accounts = await provider.send("eth_requestAccounts", []);
+	signer = provider.getSigner(accounts[0]);
+	moodContract = new ethers.Contract(moodContractAddress, moodContractABI, signer);
+	
+	let getBtn = document.getElementById("get")
+	let setBtn = document.getElementById("set")
+
+	setBtn.addEventListener('click', setMood);
+	getBtn.addEventListener('click', getMood);
+}
+
+main()
+

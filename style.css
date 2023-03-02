@@ -4,10 +4,20 @@
     margin: 0;
     box-sizing: border-box;
     font-family: 'Courier Prime', monospace;
+    padding: 2px;
 }
 
 body{
+    background-image: url("images/Web3_bg.jpg");
+    object-fit:fit;
+}
 
+.container{
+    display: grid;
+    place-items: center;
+    border: 2px solid red;
+    margin: 25vh 25vw 25vh 25vw;
+    padding: 25px;
 }
 
 h1{

@@ -15,7 +15,7 @@ body{
 .container{
     display: grid;
     place-items: center;
-    border: 2px solid red;
+    border: 2px solid blue;
     margin: 25vh 25vw 25vh 25vw;
     padding: 25px;
 }
